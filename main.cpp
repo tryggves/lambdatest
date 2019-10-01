@@ -10,7 +10,21 @@
 #include <vector>       // Vector container class (STL)
 using namespace std;
 
+// ====================================================================================
+// Lambda expression syntax:
+// Here are all parts of a lambda expression: Return type declared as void
+// [] captures the variables (in scope) available to lambda function
+// () captures parameters to the function
+// -> declares the return type
+// {} captures the statements
+//
+// Example (with return type declared as -> void
+// auto lambda4 = [](void) -> void { cout << "Code within lambda4 expression " << endl; };
+
+
+//=======================================================================
 // Example 3 help function - this is replaced with lambda expression
+//=======================================================================
 bool is_greater_than_5 (int value) {
     return (value > 5);
 }
@@ -61,6 +75,26 @@ int main() {
     // Can include the whole expression in the cout statement - notice we can skip the return type
     cout << "Number of elements greater than 5 is: " <<
         count_if(numbers.begin(), numbers.end(), [](int x) {return x>5;}) << endl;
+
+
+    // ========= EXAMPLE 4 =======================================================
+    // This shows the use of how values from the enclosing scope can be captured
+    // either by value or by reference into the Lambda expression.
+    //
+    // This is done in the first [] part of the lambda expression by inserting either
+    // '=' or '&' between the brackets.
+    int x = 1;
+    // Capture x by value
+    auto valueLambda = [=]() -> void { cout << "Capture x by value: x=" << x << endl; };
+    // Capture x by reference
+    auto refLamda = [&]() -> void { cout << "Capture x by reference: x=" << x << endl; };
+
+    // Assign a new value to x
+    x = 13;
+    // Call the lambda expressions
+    valueLambda();  // This prints x value at time of declaring the lambda expression
+    refLamda();     // This prints x value at time of running the lambda expression.
+
 
     return 0;
 }
